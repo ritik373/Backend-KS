@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+    <style>
+      body {
+        background: url("https://user-images.githubusercontent.com/39142850/67110554-fdea5400-f20d-11e9-834a-d459a612b7b1.gif")
+          rgba(0, 0, 0, 0.5);
+        background-size: cover;
+        background-blend-mode: darken;
+      }
+      #form-div {
+        border: 1px solid white;
+        width: 50%;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 5% auto;
+      }
+      #form-div h2 {
+        color: orange;
+      }
+      #form-div h2,
+      #form-div p {
+        text-align: center;
+        color: white;
+        font-size: 22px;
+      }
+      #form-div input {
+        width: 100%;
+        height: 30px;
+        margin: 12px 0px;
+      }
+      input[type="submit"] {
+        background-color: #ff8800;
+        border: 1px solid #ff8800;
+        height: 100px;
+        font-size: 15px;
+        cursor: pointer;
+        color: white;
+      }
+      #dateTime {
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+      }
+      #btns {
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 20px;
+      }
+      #btns button {
+        background-color: #ff8800;
+        border: none;
+        color: white;
+        padding: 10px;
+        cursor: pointer;
+      }
+      label {
+        color: white;
+      }
+      #container {
+        color: white;
+        background-color: black;
+        padding: 30px;
+        width: 80%;
+        margin: auto;
+        border-radius: 10px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #container div {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 255px;
+      }
+      tr {
+        color: white;
+        display: flex;
+        width: 754px;
+        justify-content: space-around;
+        font-size: 26px;
+        gap: 263px;
+        margin: auto 212px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="btns">
+      <button>Shechedule A Call</button>
+      <button>Hire Us</button>
+    </div>
+    <div id="form-div">
+      <h2>Book a call</h2>
+      <p>
+        Book a call slot our representative will call you within 1hr of selected
+        time
+      </p>
+      <hr />
+      <form action="" id="form">
+        <label for="">Name</label>
+        <br />
+        <input type="text" placeholder="Enter Your Name" id="name" />
+        <br />
+        <label for="">Email</label>
+        <br />
+        <input
+          type="text"
+          type="email"
+          placeholder="Enter Your Email"
+          id="email"
+        />
+        <br />
+        <label for="">Phone</label>
+        <br />
+        <input
+          type="text"
+          type="number"
+          placeholder="Enter Your Phone Number"
+          id="number"
+        />
+        <input type="submit" value="Get A Call" />
+      </form>
+    </div>
+
+    <div >
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>PhoneNo</th>
+          </tr>
+        </thead>
+      </table>
+      <div id="container"></div>
+    </div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.5/axios.min.js"></script>
+  <script src="./form.js"></script>
+</html>

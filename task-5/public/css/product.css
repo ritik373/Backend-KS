@@ -1,0 +1,9 @@
+.form-control label,
+.form-control input {
+  display: block;
+}
+.form-control input {
+  border: 1px solid #dbc441;
+  font: inherit;
+  border-radius: 2px;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #form {
+        display: flex;
+        gap: 20px;
+        border: 1px solid black;
+        padding: 20px;
+      }
+      #container {
+        margin-top: 5%;
+      }
+      #container div {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="form">
+      <div>
+        <label>Selling Price</label>
+        <input type="number" name="price" />
+      </div>
+      <div>
+        <label>Product Name</label>
+        <input type="text" name="name" />
+      </div>
+      <div>
+        <input type="submit" value="Add Product" />
+      </div>
+    </form>
+    <div id="container">
+      <div id="total"></div>
+    </div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.5/axios.min.js"></script>
+  <script src="./index.js"></script>
+</html>

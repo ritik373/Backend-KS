@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expenses</title>
+    <style>
+      body {
+        background-color: beige;
+      }
+      table {
+        width: 180%;
+        height: 30px;
+        overflow: scroll;
+      }
+      td {
+        text-align: center;
+      }
+      .delete {
+        display: block;
+        border: none;
+        background: transparent;
+        margin: 6% auto;
+        font-size: 16px;
+      }
+      .delete:hover {
+        color: red;
+        cursor: pointer;
+      }
+      h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+        gap: 20px;
+        font-family: cursive;
+      }
+      h1 p {
+        color: red;
+      }
+      p {
+        text-align: center;
+      }
+      div p {
+        font-size: 20px;
+        color: brown;
+      }
+      #Razorbtn {
+        display: block;
+        margin: auto;
+        padding: 5px 10px;
+        background-color: brown;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      #main-div {
+        display: flex;
+        width: 100%;
+        margin: auto;
+        justify-content: space-around;
+        align-items: center;
+        gap: 40px;
+      }
+      #output,
+      #add,
+      #subtract,
+      #Total,
+      #btn,
+      #downloadexpense,
+      #limit,
+      input[type="submit"] {
+        background-color: brown;
+        color: white;
+        font-size: 20px;
+        border: none;
+        border-radius: 10px;
+        padding: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="../Login/login.html" id="btn">
+      <button id="btn">LogOut</button>
+    </a>
+    <h1>
+      Expense of
+      <p id="nameOFUser"></p>
+    </h1>
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 620px;
+        gap: 40px;
+      "
+    >
+      <button id="Razorbtn">Buy Premium</button>
+      <button onclick="download()" id="downloadexpense">Download File</button>
+      <div>
+        <p id="message"></p>
+      </div>
+    </div>
+    <div id="main-div">
+      <div>
+        <table border="1" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Amount</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody id="expense-list"></tbody>
+        </table>
+        <div style="margin-top: 15%">
+          <div
+            class="counter_conatiner"
+            style="
+              display: flex;
+              justify-content: space-around;
+              gap: 10px;
+              align-items: center;
+            "
+          >
+            <button id="subtract">Previous</button>
+            <button id="output">1</button>
+            <button id="add">Next</button>
+            <button id="Total"></button>
+            <form id="limit-form">
+              <select name="limit" id="limit">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+              </select>
+              <input type="submit" value="Set Limit" />
+            </form>
+          </div>
+        </div>
+      </div>
+      <div id="LeaderBoard"></div>
+    </div>
+  </body>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.5/axios.min.js"></script>
+  <script src="./SignleExpense.js"></script>
+</html>

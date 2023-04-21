@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        background-color: blanchedalmond;
+      }
+      .form {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        margin: 5% auto;
+        gap: 20px;
+        border: 1px solid brown;
+        border-radius: 10px;
+        padding: 40px;
+      }
+      input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid brown;
+        border-radius: 5px;
+      }
+      label {
+        font-size: 20px;
+        font-family: cursive;
+        color: brown;
+      }
+      table {
+        width: 40%;
+        height: 60px;
+      }
+      td {
+        text-align: center;
+      }
+      input[type="submit"] {
+        background-color: brown;
+        color: white;
+        font-size: 20px;
+        border: none;
+        border-radius: 10px;
+        padding: 5px;
+      }
+    </style>
+    <title>Expense App</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1
+        class="text-center"
+        style="
+          font-family: cursive;
+
+          display: flex;
+          justify-content: center;
+          gap: 10px;
+        "
+      >
+        Expenses Form
+        <p style="color: red" id="nameOFUser"></p>
+      </h1>
+      <div
+        style="text-align: center; font-size: 22px; color: brown"
+        id="message"
+      ></div>
+      <div class="container">
+        <form class="form">
+          <div>
+            <label for="amount">Choose expenseamount:</label>
+            <input
+              name="expenseAmount"
+              type="number"
+              id="amount"
+              placeholder="Amount In Rs"
+            />
+          </div>
+          <div>
+            <label for="description">Choose description:</label>
+            <input
+              name="description"
+              type="text"
+              id="description"
+              placeholder="Description"
+            />
+          </div>
+          <div>
+            <label for="category">Choose a category:</label>
+            <select
+              name="category"
+              style="width: 100%; height: 40px; border-radius: 5px"
+              id="category"
+            >
+              <option>Movies</option>
+              <option selected>Food</option>
+              <option>Fuel</option>
+              <option>Shopping</option>
+              <option>Others</option>
+            </select>
+            <input
+              style="margin-top: 20px"
+              type="submit"
+              value="Add Expense"
+              id="expenseBtn"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.5/axios.min.js"></script>
+    <script src="./Expense.js"></script>
+  </body>
+</html>
