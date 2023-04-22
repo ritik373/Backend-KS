@@ -38,7 +38,7 @@ export const Blur = (props) => {
   );
 };
 
-// ----------------------------------------------------------------------------
+//----------------------------------------------------------------------------
 
 const Login = () => {
   const navigate = useNavigate();
@@ -58,7 +58,7 @@ const Login = () => {
       userEmail.current.value === "" ||
       userPassword.current.value === ""
     ) {
-      alert("Fill Fill All Deatails");
+      alert("Fill All Deatails");
     } else {
       try {
         const name = userName.current.value;
@@ -87,7 +87,7 @@ const Login = () => {
     }
   };
 
-  //   -----------------------------------------------------------------------
+  //-----------------------------------------------------------------------
 
   return (
     <>
