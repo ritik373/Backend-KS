@@ -70,6 +70,7 @@ const Login = () => {
           password,
         };
         let res = await axios.post("http://localhost:4000/user/login", obj);
+        console.log(res);
         dispatch(
           authActions.login({
             token: res.data.token,
@@ -77,7 +78,7 @@ const Login = () => {
             userId: res.data.userId,
           })
         );
-        alert("Logined");
+        alert("Logged In");
         navigate("/");
       } catch (error) {
         console.log("error:", error);

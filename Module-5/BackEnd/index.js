@@ -4,7 +4,6 @@ const cors = require("cors");
 const sequelize = require("./Utils/database");
 const userRoutes = require("./Routes/userRoutes");
 const app = express();
-require("dotenv").config();
 
 app.use(cors());
 app.use(bodyParser.json({ extended: false }));
