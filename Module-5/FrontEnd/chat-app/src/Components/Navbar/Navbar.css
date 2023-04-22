@@ -1,0 +1,32 @@
+.Navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: black;
+  color: white;
+  height: 70px;
+}
+
+.Navbar h2 {
+  color: #f56565;
+}
+
+.Navbar div {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+}
+
+.Navbar div a:hover {
+  color: aqua;
+}
+
+.Navbar button {
+  background-color: transparent;
+}
+
+.Navbar button:hover {
+  background-color: transparent;
+  color: aqua;
+}
