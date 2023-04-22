@@ -7,13 +7,19 @@ import { authActions } from "../Store/auth-slice";
 import "./Navbar.css";
 const Navbar = () => {
   const name = localStorage.getItem("name");
+  const token = localStorage.getItem("token");
   const dispatch = useDispatch();
-
+  // ------------------------------------------------------------
   const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(authActions.logout());
     navigate("/login");
   };
+  // ------------------------------------------------------------
+  const handleLogin = () => {
+    navigate("/login");
+  };
+  // ------------------------------------------------------------
   return (
     <Fragment>
       <div className="Navbar">
@@ -22,8 +28,14 @@ const Navbar = () => {
           <Link to={"/"}>Home</Link>
           <Link to={"/chat"}>Chat</Link>
         </div>
-        <Button onClick={handleLogout}>Logout</Button>
-        {name && <p style={{ color: "red" }}>User : {name}</p>}
+        <div>
+          {name && <p className="name">{name}</p>}
+          {token ? (
+            <Button onClick={handleLogout}>Logout</Button>
+          ) : (
+            <Button onClick={handleLogin}>Login</Button>
+          )}
+        </div>
       </div>
     </Fragment>
   );

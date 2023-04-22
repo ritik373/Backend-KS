@@ -82,6 +82,7 @@ const Login = () => {
         navigate("/");
       } catch (error) {
         console.log("error:", error);
+        alert("Login Failed");
       }
     }
   };

@@ -5,10 +5,15 @@
   background-color: black;
   color: white;
   height: 70px;
+  font-family: cursive;
 }
 
 .Navbar h2 {
   color: #f56565;
+}
+
+.Navbar h2:hover {
+  color: aquamarine;
 }
 
 .Navbar div {
@@ -29,4 +34,120 @@
 .Navbar button:hover {
   background-color: transparent;
   color: aqua;
+}
+
+@media all and (min-width: 200px) and (max-width: 300px) {
+  .Navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: black;
+    color: white;
+    height: 70px;
+    font-family: cursive;
+  }
+  .Navbar h2 {
+    font-size: 10px;
+  }
+  .Navbar p {
+    font-size: 10px;
+    color: "red";
+    font-size: 12px;
+  }
+  .Navbar div {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+  }
+  .Navbar button {
+    font-size: 10px;
+  }
+}
+
+@media all and (min-width: 300px) and (max-width: 350px) {
+  .Navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: black;
+    color: white;
+    height: 70px;
+    font-family: cursive;
+  }
+  .Navbar h2 {
+    font-size: 10px;
+  }
+  .Navbar p {
+    font-size: 10px;
+    color: "red";
+    font-size: 12px;
+  }
+  .Navbar div {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+  }
+  .Navbar button {
+    font-size: 10px;
+  }
+}
+
+@media all and (min-width: 350px) and (max-width: 400px) {
+  .Navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: black;
+    color: white;
+    height: 70px;
+    font-family: cursive;
+  }
+  .Navbar h2 {
+    font-size: 10px;
+  }
+  .Navbar p {
+    font-size: 10px;
+    color: "red";
+    font-size: 12px;
+  }
+  .Navbar div {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+  }
+  .Navbar button {
+    font-size: 10px;
+  }
+}
+
+@media all and (min-width: 400px) and (max-width: 500px) {
+  .Navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: black;
+    color: white;
+    height: 70px;
+    font-family: cursive;
+  }
+  .Navbar h2 {
+    font-size: 10px;
+  }
+  .Navbar p {
+    font-size: 10px;
+    color: "red";
+    font-size: 12px;
+  }
+  .Navbar div {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+  }
+  .Navbar button {
+    font-size: 10px;
+  }
 }
