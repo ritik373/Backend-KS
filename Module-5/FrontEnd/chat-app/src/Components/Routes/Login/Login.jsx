@@ -82,7 +82,7 @@ const Login = () => {
         navigate("/");
       } catch (error) {
         console.log("error:", error);
-        alert("Login Failed");
+        alert("User Not Found Or Network Error");
       }
     }
   };

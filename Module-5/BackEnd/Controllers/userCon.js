@@ -41,7 +41,7 @@ exports.signin = async (req, res, next) => {
       if (err) {
         throw new Error("Something went wrong");
       }
-      if (result === true) {
+      if (result) {
         res.status(200).json({
           message: "User logged in successfully",
           success: true,
@@ -51,7 +51,7 @@ exports.signin = async (req, res, next) => {
           userId: user.id,
         });
       } else {
-        res.status(401).json({ err: "Incorrect passowrd", success: false });
+        res.status(404).json({ err: "Incorrect passowrd", success: false });
       }
     });
   } catch (error) {
