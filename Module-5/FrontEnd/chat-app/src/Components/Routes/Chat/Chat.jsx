@@ -1,17 +1,28 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import "./Chat.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Input } from "@chakra-ui/react";
 import { AiOutlineSend } from "react-icons/ai";
 import axios from "axios";
+import { messageActions } from "../../Store/message-slice";
 const Chat = () => {
-  const authToken = useSelector((state) => state.auth.token);
-
-  const authToken2 = useSelector((state) => state.auth.name);
-
-  const [data, setData] = useState([]);
-
   const Inputmessage = useRef();
+  const authToken = useSelector((state) => state.auth.token);
+  const authToken2 = useSelector((state) => state.auth.name);
+  const messageArray = useSelector((state) => state.message.messages);
+  const dispatch = useDispatch();
+
+  async function getData() {
+    try {
+      let res = await axios.get("http://localhost:4000/message/get-messages", {
+        headers: { Authorization: authToken },
+      });
+      dispatch(messageActions.setMessages(res.data));
+    } catch (error) {
+      console.log("error:", error);
+    }
+  }
+
   const handleMessage = async () => {
     const Entermessage = Inputmessage.current.value;
     const message = {
@@ -24,22 +35,17 @@ const Chat = () => {
         message,
         { headers: { Authorization: authToken } }
       );
-      console.log(res);
+      getData();
       Inputmessage.current.value = "";
     } catch (error) {
       console.log("error:", error);
     }
-
-    try {
-      let res = await axios.get("http://localhost:4000/message/get-messages", {
-        headers: { Authorization: authToken },
-      });
-      setData(res.data);
-    } catch (error) {
-      console.log("error:", error);
-    }
   };
-  console.log(data);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <>
       <div className="chat-app">
@@ -74,7 +80,6 @@ const Chat = () => {
                 version="1.1"
                 x="0px"
                 y="0px"
-                // enablBackground="new 0 0 24 24"
               >
                 <path
                   fill="currentColor"
@@ -84,8 +89,7 @@ const Chat = () => {
             </div>
           </div>
           <div className="chat-app-message-list">
-            {data.map((msg, i) => {
-              console.log(msg);
+            {messageArray.map((msg, i) => {
               return <div key={i}>{msg.message}</div>;
             })}
           </div>
