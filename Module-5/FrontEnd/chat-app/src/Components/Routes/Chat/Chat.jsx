@@ -6,11 +6,16 @@ import { AiOutlineSend } from "react-icons/ai";
 import axios from "axios";
 const Chat = () => {
   const authToken = useSelector((state) => state.auth.token);
+
+  const authToken2 = useSelector((state) => state.auth.name);
+
+  const [data, setData] = useState([]);
+
   const Inputmessage = useRef();
-  // const [messages, setMessage] = useState([]);
   const handleMessage = async () => {
     const Entermessage = Inputmessage.current.value;
     const message = {
+      name: authToken2,
       message: Entermessage,
     };
     try {
@@ -20,10 +25,21 @@ const Chat = () => {
         { headers: { Authorization: authToken } }
       );
       console.log(res);
+      Inputmessage.current.value = "";
+    } catch (error) {
+      console.log("error:", error);
+    }
+
+    try {
+      let res = await axios.get("http://localhost:4000/message/get-messages", {
+        headers: { Authorization: authToken },
+      });
+      setData(res.data);
     } catch (error) {
       console.log("error:", error);
     }
   };
+  console.log(data);
   return (
     <>
       <div className="chat-app">
@@ -44,7 +60,6 @@ const Chat = () => {
                 version="1.1"
                 x="0px"
                 y="0px"
-                // enableBackground="new 0 0 24 24"
               >
                 <path
                   fill="currentColor"
@@ -69,9 +84,10 @@ const Chat = () => {
             </div>
           </div>
           <div className="chat-app-message-list">
-            {/* {messages.map((msg, i) => {
-              return <div key={i}>{msg}</div>;
-            })} */}
+            {data.map((msg, i) => {
+              console.log(msg);
+              return <div key={i}>{msg.message}</div>;
+            })}
           </div>
           <div className="chat-message-composer">
             <form className="form">

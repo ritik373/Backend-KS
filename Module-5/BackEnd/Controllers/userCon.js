@@ -5,14 +5,17 @@ require("dotenv").config();
 
 exports.signup = async (req, res, next) => {
   try {
-    const { name, email, password } = req.body;
+    let name = req.body.name;
+    let email = req.body.email;
+    let password = req.body.password;
+    console.log(name, password, email);
     let user = await User.findOne({ where: { name: name, email: email } });
     if (user) {
       return res.status(400).json({ message: "User Already Exits" });
     } else {
       const saltrounds = 10;
       bcrypt.hash(password, saltrounds, async (err, hash) => {
-        console.log(err);
+        // console.log(err);
         await User.create({ name: name, email: email, password: hash });
       });
       res
@@ -21,7 +24,7 @@ exports.signup = async (req, res, next) => {
     }
   } catch (error) {
     console.log("error:", error);
-    res.status(500).json({ err: err, success: false });
+    res.status(500).json({ err: error, success: false });
   }
 };
 
