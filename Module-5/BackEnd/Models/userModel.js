@@ -21,6 +21,14 @@ const User = sequelize.define("users", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  url: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  phoneNo: {
+    type: Sequelize.BIGINT,
+    allowNull: true,
+  },
 });
 
 module.exports = User;

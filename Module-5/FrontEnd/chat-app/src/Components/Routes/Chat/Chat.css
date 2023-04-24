@@ -70,6 +70,11 @@ form button:hover {
   gap: 40px;
 }
 
+.chat-app-user-list {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .chat-app-message-list {
   height: calc(100% - 106px);
 }
@@ -102,11 +107,20 @@ form button:hover {
   border-radius: 10px;
 }
 
-.chat-app-user-list > div {
+.chat-app-user-list p {
   font-size: 22px;
   background-color: #111b21;
   color: white;
+  width: 70%;
   padding: 13px 10px;
+  margin-left: 12px;
+  margin-bottom: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.chat-app-user-list img {
+  width: 62px;
+  margin-bottom: 7px;
 }
 
 @media (max-width: 767px) {

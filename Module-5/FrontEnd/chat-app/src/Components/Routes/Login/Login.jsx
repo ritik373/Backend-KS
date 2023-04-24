@@ -45,6 +45,7 @@ const Login = () => {
   const userName = useRef();
   const userEmail = useRef();
   const userPassword = useRef();
+  const userPhoneno = useRef();
 
   const dispatch = useDispatch();
 
@@ -56,7 +57,8 @@ const Login = () => {
     if (
       userName.current.value === "" ||
       userEmail.current.value === "" ||
-      userPassword.current.value === ""
+      userPassword.current.value === "" ||
+      userPhoneno.current.value === ""
     ) {
       alert("Fill All Deatails");
     } else {
@@ -64,10 +66,12 @@ const Login = () => {
         const name = userName.current.value;
         const email = userEmail.current.value;
         const password = userPassword.current.value;
+        const phoneNo = userPhoneno.current.value;
         let obj = {
           name,
           email,
           password,
+          phoneNo,
         };
         let res = await axios.post("http://localhost:4000/user/login", obj);
         console.log(res);
@@ -179,6 +183,17 @@ const Login = () => {
                   type="password"
                   ref={userPassword}
                   placeholder="Enter Your Password"
+                  bg={"gray.100"}
+                  border={0}
+                  color={"gray.500"}
+                  _placeholder={{
+                    color: "gray.500",
+                  }}
+                />
+                <Input
+                  type="number"
+                  ref={userPhoneno}
+                  placeholder="Enter Your Phone No"
                   bg={"gray.100"}
                   border={0}
                   color={"gray.500"}

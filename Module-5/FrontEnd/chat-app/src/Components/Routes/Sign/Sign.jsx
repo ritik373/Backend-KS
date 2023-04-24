@@ -18,6 +18,8 @@ const Sign = () => {
   const userName = useRef();
   const userEmail = useRef();
   const userPassword = useRef();
+  const userAvatar = useRef();
+  const userPhone = useRef();
   const navigate = useNavigate();
 
   // ----------------------------------------------------------------------
@@ -26,7 +28,9 @@ const Sign = () => {
     if (
       userName.current.value === "" ||
       userEmail.current.value === "" ||
-      userPassword.current.value === ""
+      userPassword.current.value === "" ||
+      userAvatar.current.value === "" ||
+      userPhone.current.value === ""
     ) {
       alert("Fill Fill All Deatails");
     } else {
@@ -34,15 +38,20 @@ const Sign = () => {
         const name = userName.current.value;
         const email = userEmail.current.value;
         const password = userPassword.current.value;
+        const url = userAvatar.current.value;
+        const phoneNo = userPhone.current.value;
         const obj = {
           name,
           email,
           password,
+          url,
+          phoneNo,
         };
         let res = await axios.post("http://localhost:4000/user/signup", obj);
         console.log(res);
         if (res.status === 201) {
           alert(res.data.message);
+          localStorage.setItem("url", url);
           navigate("/login");
         }
         if (res.status === 401) {
@@ -78,7 +87,7 @@ const Sign = () => {
           p={8}
         >
           <Stack spacing={4}>
-            <FormControl id="email">
+            <FormControl>
               <FormLabel>Name</FormLabel>
               <Input ref={userName} type="text" required />
             </FormControl>
@@ -89,6 +98,14 @@ const Sign = () => {
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
               <Input ref={userPassword} type="password" required />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Avatar</FormLabel>
+              <Input ref={userAvatar} type="text" required />
+            </FormControl>
+            <FormControl>
+              <FormLabel>Phone No</FormLabel>
+              <Input ref={userPhone} type="number" required />
             </FormControl>
             <Stack spacing={10}>
               <Button

@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import "./Chat.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Input } from "@chakra-ui/react";
+import { Image, Input } from "@chakra-ui/react";
 import { AiOutlineSend } from "react-icons/ai";
 import axios from "axios";
 import { messageActions } from "../../Store/message-slice";
 const Chat = () => {
   const Inputmessage = useRef();
+  const url = localStorage.getItem("url");
   const authToken = useSelector((state) => state.auth.token);
   const authToken2 = useSelector((state) => state.auth.name);
   const messageArray = useSelector((state) => state.message.messages);
@@ -51,7 +52,14 @@ const Chat = () => {
       <div className="chat-app">
         <div className="chat-left-sidebar">
           <div className="chat-app-user-list">
-            <div>{localStorage.getItem("name") || ""}</div>
+            <Image
+              src={
+                url ||
+                "https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg"
+              }
+              alt=""
+            />
+            <p>{localStorage.getItem("name") || ""}</p>
           </div>
         </div>
         <div className="chat-right-sidebar">
@@ -90,7 +98,13 @@ const Chat = () => {
           </div>
           <div className="chat-app-message-list">
             {messageArray.map((msg, i) => {
-              return <div key={i}>{msg.message}</div>;
+              console.log(msg);
+              return (
+                <div key={i}>
+                  {/* <p>{msg.name}</p> */}
+                  <p>{msg.message}</p>
+                </div>
+              );
             })}
           </div>
           <div className="chat-message-composer">
