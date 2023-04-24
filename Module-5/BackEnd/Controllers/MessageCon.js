@@ -4,7 +4,7 @@ exports.postMessage = async (req, res, next) => {
   try {
     const { name, message } = req.body;
     let UserId = req.user.id;
-    console.log(">>>>>>>", name, message, UserId);
+
     let mes = await Message.create({
       name: name,
       message: message,
@@ -20,7 +20,6 @@ exports.postMessage = async (req, res, next) => {
 exports.getMessage = async (req, res, next) => {
   try {
     const messages = await Message.findAll({ where: { userId: req.user.id } });
-    console.log(">>>>>>messages>>>", messages);
     res.status(200).json(messages);
   } catch (err) {
     console.log(err);

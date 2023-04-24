@@ -1,17 +1,26 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Chat.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Image, Input } from "@chakra-ui/react";
 import { AiOutlineSend } from "react-icons/ai";
 import axios from "axios";
 import { messageActions } from "../../Store/message-slice";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
 const Chat = () => {
   const Inputmessage = useRef();
   const url = localStorage.getItem("url");
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [show, setShow] = useState(false);
   const authToken = useSelector((state) => state.auth.token);
   const authToken2 = useSelector((state) => state.auth.name);
   const messageArray = useSelector((state) => state.message.messages);
   const dispatch = useDispatch();
+
+  const groupName = useRef();
+  const groupAdminName = useRef();
 
   async function getData() {
     try {
@@ -43,12 +52,98 @@ const Chat = () => {
     }
   };
 
+  const handleGroup = async (e) => {
+    e.preventDefault();
+    let name = groupName.current.value;
+    let adminname = groupAdminName.current.value;
+    let group = {
+      name: name,
+      adminname: adminname,
+    };
+    try {
+      let res = await axios.post(
+        "http://localhost:4000/group/create-group",
+        group,
+        { headers: { Authorization: authToken } }
+      );
+      console.log(res);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
+
+  const handleGroups = async () => {
+    try {
+      let res = await axios.get("http://localhost:4000/group/get-groups", {
+        headers: { Authorization: authToken },
+      });
+      console.log(res);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
+
   useEffect(() => {
     getData();
+    handleGroups();
   }, []);
 
   return (
     <>
+      <div style={{ marginTop: "20px" }}>
+        <Button variant="primary" onClick={handleShow}>
+          Create Group
+        </Button>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Create Group</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>GROUP NAME</Form.Label>
+                <Form.Control
+                  ref={groupName}
+                  type="text"
+                  placeholder="ENTER GROUP NAME"
+                  autoFocus
+                />
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlTextarea1"
+              >
+                <Form.Label>ENTER ADMIN NAME</Form.Label>
+                <Form.Control
+                  ref={groupAdminName}
+                  type="text"
+                  placeholder="ENTER ADMIN NAME"
+                  autoFocus
+                />
+                <Form.Control
+                  onClick={handleGroup}
+                  type="submit"
+                  style={{
+                    display: "block",
+                    margin: "5% auto",
+                    backgroundColor: "#0c6efd",
+                    color: "white",
+                  }}
+                  value={"ADD GROUP"}
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
       <div className="chat-app">
         <div className="chat-left-sidebar">
           <div className="chat-app-user-list">
