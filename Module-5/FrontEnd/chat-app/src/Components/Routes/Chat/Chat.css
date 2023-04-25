@@ -4,11 +4,17 @@
   align-items: center;
 }
 
-.form input:focus {
-  border: none;
+*:focus {
+  outline: none;
 }
 
-.btn:hover {
+.form input:focus {
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.btns:hover {
   cursor: pointer;
 }
 
@@ -30,7 +36,7 @@ form button:hover {
   width: 1200px;
   max-width: 96%;
   height: 540px;
-  margin-top: 40px;
+  margin-top: 20px;
   margin-bottom: 80px;
   margin-left: auto;
   margin-right: auto;
@@ -46,14 +52,14 @@ form button:hover {
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 10px;
-  overflow: hidden;
+  overflow: scroll;
 }
 .chat-right-sidebar {
   width: 100%;
   height: 100%;
   border: 1px solid #ddd;
   border-radius: 10px;
-  overflow: hidden;
+  overflow: scroll;
 }
 .chat-app-header {
   display: flex;
@@ -73,6 +79,40 @@ form button:hover {
 .chat-app-user-list {
   display: flex;
   justify-content: space-evenly;
+}
+
+.add-members button {
+  background-color: transparent;
+  border: none;
+}
+.add-members button:hover {
+  background-color: transparent;
+}
+
+.add-members button:focus {
+  background-color: transparent;
+}
+
+.add-members {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.add-members select option {
+  width: 70%;
+  padding: 20px;
+}
+
+.add-members select:hover {
+  cursor: pointer;
+}
+
+.groupsMem {
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: #0c6efd;
+  color: white;
 }
 
 .chat-app-message-list {
@@ -102,25 +142,74 @@ form button:hover {
   max-width: fit-content;
   margin-top: 10px;
   margin-left: 80%;
-  padding: 3px 15px;
+  padding: 0px 15px;
   background-color: #e1ffc7;
   border-radius: 10px;
+}
+
+.Groups-and-Chats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.Groups-and-Chats img {
+  width: 20%;
+}
+.Groups-and-Chats p {
+  margin-bottom: 0rem;
+  font-size: 20px;
+  font-family: cursive;
+}
+.createBtn {
+  margin-top: 10px;
+}
+
+.groupPic-and-GroupName-parent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.groupPic-and-GroupName {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.groupPic-and-GroupName {
+  cursor: pointer;
+}
+
+.groupPic-and-GroupName img {
+  width: 20%;
+}
+
+.groupPic-and-GroupName p {
+  margin-bottom: 0rem;
+  font-size: 25px;
+  font-family: cursive;
+}
+
+.msg {
+  color: #916706;
+  width: 53%;
+  margin: 15% auto;
 }
 
 .chat-app-user-list p {
   font-size: 22px;
   background-color: #111b21;
   color: white;
-  width: 70%;
-  padding: 13px 10px;
-  margin-left: 12px;
-  margin-bottom: 10px;
+  width: 79%;
+  padding: 12px 10px;
+  margin-left: -3px;
+  margin-bottom: 15px;
   border-bottom-left-radius: 10px;
 }
 
 .chat-app-user-list img {
-  width: 62px;
-  margin-bottom: 7px;
+  width: 55px;
+  margin-bottom: 16px;
 }
 
 @media (max-width: 767px) {

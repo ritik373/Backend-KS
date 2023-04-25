@@ -1,11 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-const initialGroups = JSON.parse(localStorage.getItem("groups"));
-const initialGroupId = JSON.parse(localStorage.getItem("groupId"));
+const initialGroupId = localStorage.getItem("groupId");
 const initialGroupName = localStorage.getItem("groupname");
-const initialSearchResult = localStorage.getItem("searchresult");
 const initialIsAdmin = localStorage.getItem("isAdmin");
-const convertToBooleanIsAdmin = initialIsAdmin == "true";
+const convertToBooleanIsAdmin = initialIsAdmin === "true";
 const initialMessageState = {
   messages: [],
   groups: [],
@@ -22,7 +19,6 @@ const messageSlice = createSlice({
   reducers: {
     setMessages(state, action) {
       state.messages = action.payload;
-      localStorage.setItem("messages", JSON.stringify(action.payload));
     },
     setGroups(state, action) {
       state.groups = action.payload;

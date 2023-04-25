@@ -11,7 +11,7 @@ router.post(
 );
 
 router.get(
-  "/get-messages",
+  "/get-messages/:groupId",
   authController.authenticate,
   messageController.getMessage
 );

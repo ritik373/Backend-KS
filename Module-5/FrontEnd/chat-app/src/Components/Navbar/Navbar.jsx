@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { authActions } from "../Store/auth-slice";
 
 import "./Navbar.css";
-import { messageActions } from "../Store/message-slice";
 const Navbar = () => {
   const name = localStorage.getItem("name");
   const token = localStorage.getItem("token");
@@ -14,7 +13,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
     dispatch(authActions.logout());
-    dispatch(messageActions.setMessages([]));
     navigate("/login");
   };
   // ------------------------------------------------------------

@@ -31,6 +31,9 @@ const authSlice = createSlice({
       localStorage.removeItem("name");
       localStorage.removeItem("userid");
       localStorage.removeItem("url");
+      localStorage.removeItem("messages");
+      localStorage.removeItem("groups");
+      localStorage.removeItem("groupId");
     },
   },
 });

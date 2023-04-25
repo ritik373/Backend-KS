@@ -8,25 +8,36 @@ import { messageActions } from "../../Store/message-slice";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import Groups from "../Groups/Groups";
+import ADDGROUP from "../ADDGroup/ADDGROUP";
 const Chat = () => {
   const Inputmessage = useRef();
   const url = localStorage.getItem("url");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [show, setShow] = useState(false);
+  const [GroupId, setGroupId] = useState();
+  console.log("GroupId:", GroupId);
+  const [name, setname] = useState();
   const authToken = useSelector((state) => state.auth.token);
   const authToken2 = useSelector((state) => state.auth.name);
   const messageArray = useSelector((state) => state.message.messages);
+  const userId = useSelector((state) => state.auth.userId);
+  const groups = useSelector((state) => state.message.groups);
   const dispatch = useDispatch();
 
   const groupName = useRef();
   const groupAdminName = useRef();
+  const groupIcon = useRef();
 
   async function getData() {
     try {
-      let res = await axios.get("http://localhost:4000/message/get-messages", {
-        headers: { Authorization: authToken },
-      });
+      let res = await axios.get(
+        `http://localhost:4000/message/get-messages/${GroupId}`,
+        {
+          headers: { Authorization: authToken },
+        }
+      );
       dispatch(messageActions.setMessages(res.data));
     } catch (error) {
       console.log("error:", error);
@@ -38,17 +49,22 @@ const Chat = () => {
     const message = {
       name: authToken2,
       message: Entermessage,
+      groupId: GroupId,
     };
-    try {
-      let res = await axios.post(
-        "http://localhost:4000/message/send-message",
-        message,
-        { headers: { Authorization: authToken } }
-      );
-      getData();
-      Inputmessage.current.value = "";
-    } catch (error) {
-      console.log("error:", error);
+    if (Entermessage === "") {
+      alert("Please Fill Some Message");
+    } else {
+      try {
+        let res = await axios.post(
+          "http://localhost:4000/message/send-message",
+          message,
+          { headers: { Authorization: authToken } }
+        );
+        getData();
+        Inputmessage.current.value = "";
+      } catch (error) {
+        console.log("error:", error);
+      }
     }
   };
 
@@ -56,28 +72,57 @@ const Chat = () => {
     e.preventDefault();
     let name = groupName.current.value;
     let adminname = groupAdminName.current.value;
+    let avatar = groupIcon.current.value;
+    localStorage.setItem("groupName", name);
     let group = {
       name: name,
       adminname: adminname,
+      userId: userId,
+      avatar: avatar,
     };
-    try {
-      let res = await axios.post(
-        "http://localhost:4000/group/create-group",
-        group,
-        { headers: { Authorization: authToken } }
-      );
-      console.log(res);
-    } catch (error) {
-      console.log("error:", error);
+    if (name === "" || adminname === "") {
+      alert("fill all fields");
+    } else {
+      try {
+        let res = await axios.post(
+          "http://localhost:4000/group/create-group",
+          group,
+          { headers: { Authorization: authToken } }
+        );
+        handleGroups();
+        handleClose();
+      } catch (error) {
+        console.log("error:", error);
+      }
     }
   };
 
   const handleGroups = async () => {
     try {
-      let res = await axios.get("http://localhost:4000/group/get-groups", {
-        headers: { Authorization: authToken },
-      });
-      console.log(res);
+      let res = await axios.get(
+        "http://localhost:4000/group/get-groups",
+
+        {
+          headers: { Authorization: authToken },
+        }
+      );
+      dispatch(messageActions.setGroups(res.data.group));
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
+
+  const switchChats = async (groupId, name) => {
+    setGroupId(groupId);
+    setname(name);
+    try {
+      let res = await axios.get(
+        `http://localhost:4000/message/get-messages/${groupId}`,
+        {
+          headers: { Authorization: authToken },
+        }
+      );
+      dispatch(messageActions.setMessages(res.data));
     } catch (error) {
       console.log("error:", error);
     }
@@ -86,14 +131,12 @@ const Chat = () => {
   useEffect(() => {
     getData();
     handleGroups();
-  }, []);
+  }, [GroupId]);
 
   return (
     <>
-      <div style={{ marginTop: "20px" }}>
-        <Button variant="primary" onClick={handleShow}>
-          Create Group
-        </Button>
+      <div className="createBtn">
+        <Button onClick={handleShow}>Create Group</Button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Create Group</Modal.Title>
@@ -123,18 +166,30 @@ const Chat = () => {
                   placeholder="ENTER ADMIN NAME"
                   autoFocus
                 />
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>GROUP ICON</Form.Label>
                 <Form.Control
-                  onClick={handleGroup}
-                  type="submit"
-                  style={{
-                    display: "block",
-                    margin: "5% auto",
-                    backgroundColor: "#0c6efd",
-                    color: "white",
-                  }}
-                  value={"ADD GROUP"}
+                  ref={groupIcon}
+                  type="text"
+                  placeholder="ENTER GROUP ICON"
+                  autoFocus
                 />
               </Form.Group>
+              <Form.Control
+                onClick={handleGroup}
+                type="submit"
+                style={{
+                  display: "block",
+                  margin: "5% auto",
+                  backgroundColor: "#0c6efd",
+                  color: "white",
+                }}
+                value={"ADD GROUP"}
+              />
             </Form>
           </Modal.Body>
           <Modal.Footer>
@@ -152,14 +207,30 @@ const Chat = () => {
                 url ||
                 "https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg"
               }
-              alt=""
+              alt="ImageName"
             />
             <p>{localStorage.getItem("name") || ""}</p>
+          </div>
+          <div className="groupPic-and-GroupName-parent">
+            {groups.map((group) => (
+              <Groups
+                key={group.id}
+                name={group.name}
+                switchChats={switchChats}
+                id={group.id}
+                adminname={group.adminname}
+                avatar={group.avatar}
+                userId={group.userId}
+              />
+            ))}
           </div>
         </div>
         <div className="chat-right-sidebar">
           <div className="chat-app-header">
-            <h1>Hello</h1>
+            <h5>{name}</h5>
+            <div className="add-members">
+              <ADDGROUP groupId={GroupId} />
+            </div>
             <div className="icons">
               <svg
                 viewBox="0 0 24 24"
@@ -192,11 +263,9 @@ const Chat = () => {
             </div>
           </div>
           <div className="chat-app-message-list">
-            {messageArray.map((msg, i) => {
-              console.log(msg);
+            {messageArray.map((msg) => {
               return (
-                <div key={i}>
-                  {/* <p>{msg.name}</p> */}
+                <div key={msg.id}>
                   <p>{msg.message}</p>
                 </div>
               );
@@ -213,10 +282,9 @@ const Chat = () => {
                 placeholder="Enter Your Message"
               />
               <AiOutlineSend
-                className="btn"
+                className="btns"
+                style={{ color: "grey", fontSize: "34px" }}
                 onClick={handleMessage}
-                fontSize={"32px"}
-                color="black"
               />
             </form>
           </div>

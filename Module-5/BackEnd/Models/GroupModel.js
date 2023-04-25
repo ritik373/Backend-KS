@@ -17,6 +17,14 @@ const Group = sequelize.define("groups", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  avatar: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  userId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
 });
 
 module.exports = Group;

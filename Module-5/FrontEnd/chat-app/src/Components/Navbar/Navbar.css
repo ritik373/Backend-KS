@@ -22,6 +22,9 @@
   align-items: center;
   justify-content: center;
 }
+.name {
+  margin-bottom: 0px;
+}
 
 .Navbar div a:hover {
   color: aqua;

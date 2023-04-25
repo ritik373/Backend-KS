@@ -2,13 +2,15 @@ const Group = require("../Models/GroupModel");
 
 exports.postGroup = async (req, res, next) => {
   try {
-    const { name, adminname } = req.body;
-    console.log(name, adminname);
+    const { name, adminname, userId, avatar } = req.body;
+    console.log(name, adminname, userId);
     const group = await Group.create({
       name: name,
       adminname: adminname,
+      avatar: avatar,
+      userId: userId,
     });
-    await req.user.addGroup(group);
+
     res.status(201).json(group);
   } catch (error) {
     console.log("error:", error);
@@ -18,12 +20,9 @@ exports.postGroup = async (req, res, next) => {
 
 exports.getGroup = async (req, res, next) => {
   try {
-    const groups = await Group.findAll(
-      findAll({ where: { user: req.user.email } })
-    );
-    console.log(groups);
+    const groups = await Group.findAll({ where: { userId: req.user.id } });
     res.status(200).json({ group: groups });
   } catch (err) {
-    res.status(500).json({ err: err, success: "false Ni Jara" });
+    res.status(500).json({ err: err, success: "false" });
   }
 };
