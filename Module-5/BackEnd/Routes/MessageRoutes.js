@@ -15,5 +15,10 @@ router.get(
   authController.authenticate,
   messageController.getMessage
 );
+router.delete(
+  "/deleteMessage/:id",
+  authController.authenticate,
+  messageController.deleteMessage
+);
 
 module.exports = router;

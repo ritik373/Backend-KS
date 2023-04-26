@@ -10,14 +10,16 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Groups from "../Groups/Groups";
 import ADDGROUP from "../ADDGroup/ADDGROUP";
+import { BsThreeDotsVertical } from "react-icons/bs";
+
 const Chat = () => {
   const Inputmessage = useRef();
+  const [userGroup, setuserGroup] = useState([]);
   const url = localStorage.getItem("url");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [show, setShow] = useState(false);
   const [GroupId, setGroupId] = useState();
-  console.log("GroupId:", GroupId);
   const [name, setname] = useState();
   const authToken = useSelector((state) => state.auth.token);
   const authToken2 = useSelector((state) => state.auth.name);
@@ -25,7 +27,6 @@ const Chat = () => {
   const userId = useSelector((state) => state.auth.userId);
   const groups = useSelector((state) => state.message.groups);
   const dispatch = useDispatch();
-
   const groupName = useRef();
   const groupAdminName = useRef();
   const groupIcon = useRef();
@@ -38,6 +39,7 @@ const Chat = () => {
           headers: { Authorization: authToken },
         }
       );
+      console.log(res);
       dispatch(messageActions.setMessages(res.data));
     } catch (error) {
       console.log("error:", error);
@@ -128,9 +130,36 @@ const Chat = () => {
     }
   };
 
+  const getMemberGroup = async () => {
+    try {
+      let res = await axios.get(
+        "http://localhost:4000/group/get-Membergroups",
+        { headers: { Authorization: authToken } }
+      );
+      setuserGroup(res.data.MemGroup);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
+
+  const handleDeleteMessage = async (id) => {
+    console.log(id);
+    try {
+      let res = await axios.delete(
+        `http://localhost:4000/message/deleteMessage/${id}`,
+        { headers: { Authorization: authToken } }
+      );
+      getData();
+      window.location.reload();
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
+
   useEffect(() => {
     getData();
     handleGroups();
+    getMemberGroup();
   }, [GroupId]);
 
   return (
@@ -223,6 +252,18 @@ const Chat = () => {
                 userId={group.userId}
               />
             ))}
+            {userGroup.map((group) => {
+              return (
+                <div
+                  key={group.id}
+                  className="groupPic-and-GroupName"
+                  onClick={() => switchChats(group.id, group.name)}
+                >
+                  <Image src={group.avatar} alt="image" />
+                  <p> {group.name}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className="chat-right-sidebar">
@@ -263,13 +304,36 @@ const Chat = () => {
             </div>
           </div>
           <div className="chat-app-message-list">
-            {messageArray.map((msg) => {
-              return (
-                <div key={msg.id}>
-                  <p>{msg.message}</p>
-                </div>
-              );
-            })}
+            {messageArray.length === 0 ? (
+              <p
+                style={{
+                  color: "black",
+                  width: "40%",
+                  margin: "20% auto",
+                }}
+              >
+                Messages are end-to-end encrypted . No one Outside of this chat
+                ,not even What's Chat , can read or listen to them. Click to
+                learn more .
+              </p>
+            ) : (
+              messageArray.map((msg) => {
+                return (
+                  <div className="message-box" key={msg.id}>
+                    <div>
+                      <h6>{msg.name}</h6>
+                      <p>{msg.message}</p>
+                    </div>
+                    <div>
+                      <BsThreeDotsVertical
+                        className="deletebtn"
+                        onClick={() => handleDeleteMessage(msg.id)}
+                      />
+                    </div>
+                  </div>
+                );
+              })
+            )}
           </div>
           <div className="chat-message-composer">
             <form className="form">

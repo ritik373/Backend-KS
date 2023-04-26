@@ -1,9 +1,9 @@
 const Group = require("../Models/GroupModel");
+const GroupParticipants = require("../Models/GroupParti");
 
 exports.postGroup = async (req, res, next) => {
   try {
     const { name, adminname, userId, avatar } = req.body;
-    console.log(name, adminname, userId);
     const group = await Group.create({
       name: name,
       adminname: adminname,
@@ -24,5 +24,16 @@ exports.getGroup = async (req, res, next) => {
     res.status(200).json({ group: groups });
   } catch (err) {
     res.status(500).json({ err: err, success: "false" });
+  }
+};
+
+exports.getMembersGroup = async (req, res, next) => {
+  try {
+    const MemGroup = await GroupParticipants.findAll({
+      where: { userId: req.user.id },
+    });
+    res.status(200).json({ MemGroup });
+  } catch (error) {
+    console.log("error:", error);
   }
 };

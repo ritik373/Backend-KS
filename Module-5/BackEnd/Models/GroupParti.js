@@ -12,7 +12,14 @@ const GroupParticipants = Sequelize.define("GroupsMember", {
   email: {
     type: sequelize.STRING,
     allowNull: false,
-    unique: true,
+  },
+  name: {
+    type: sequelize.STRING,
+    allowNull: false,
+  },
+  avatar: {
+    type: sequelize.STRING,
+    allowNull: false,
   },
 });
 

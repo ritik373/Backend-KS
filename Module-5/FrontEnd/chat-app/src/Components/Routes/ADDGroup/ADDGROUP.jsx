@@ -7,27 +7,30 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const ADDGROUP = (props) => {
-  console.log(props.groupId);
   const authToken = useSelector((state) => state.auth.token);
   const groupId = useSelector((state) => state.message.groupId);
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const [member, setMember] = useState([]);
   const inputEmail = useRef();
+  const inputName = useRef();
+  const inputavatar = useRef();
   const handleShow = () => setShow(true);
   const handleClose = async () => {
     setShow(false);
     let email = inputEmail.current.value;
-
-    if (email === "") {
+    let name = inputName.current.value;
+    let avatar = inputavatar.current.value;
+    if (email === "" || name === "" || avatar === "") {
       alert("Fill email");
     } else {
       try {
         let res = await axios.post(
           "http://localhost:4000/groups/addMember",
-          { email: email, groupId: groupId },
+          { email: email, name: name, avatar: avatar, groupId: props.groupId },
           { headers: { Authorization: authToken } }
         );
+        console.log(res);
         handleGetGroups();
       } catch (error) {
         console.log("error:", error);
@@ -36,7 +39,6 @@ const ADDGROUP = (props) => {
   };
 
   const handleGetGroups = async () => {
-    console.log(props.groupId);
     try {
       let res = await axios.get(
         `http://localhost:4000/groups/getMember/${props.groupId}`,
@@ -54,18 +56,15 @@ const ADDGROUP = (props) => {
   const handleDeleteParti = async (e) => {
     let id = e.target.value;
     console.log(id);
-    // try {
-    //   let res = await axios.delete(
-    //     `http://localhost:4000/groups/delete/${id}`,
-    //     { headers: { Authorization: authToken } }
-    //   );
-    //   handleGetGroups();
-    //   navigate("/chat");
-    //   console.log(res);
-    // } catch (error) {
-    //   console.log("error:", error);
-    // }
-    // navigate("/chat");
+    try {
+      let res = await axios.delete(
+        `http://localhost:4000/groups/delete/${id}`,
+        { headers: { Authorization: authToken } }
+      );
+      handleGetGroups();
+    } catch (error) {
+      console.log("error:", error);
+    }
   };
 
   useEffect(() => {
@@ -91,6 +90,30 @@ const ADDGROUP = (props) => {
                   ref={inputEmail}
                   type="email"
                   placeholder="name@example.com"
+                  autoFocus
+                />
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Group Name</Form.Label>
+                <Form.Control
+                  ref={inputName}
+                  type="text"
+                  placeholder="Group Name"
+                  autoFocus
+                />
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Group Avatar</Form.Label>
+                <Form.Control
+                  ref={inputavatar}
+                  type="text"
+                  placeholder="Group Avatar"
                   autoFocus
                 />
               </Form.Group>

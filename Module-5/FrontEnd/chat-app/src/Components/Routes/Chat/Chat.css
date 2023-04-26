@@ -135,16 +135,28 @@ form button:hover {
   background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
 }
 
-.chat-app-message-list > div {
+.chat-app-message-list > div > :nth-child(1) {
   color: black;
   border: none;
-  text-align: right;
-  max-width: fit-content;
   margin-top: 10px;
   margin-left: 80%;
   padding: 0px 15px;
   background-color: #e1ffc7;
   border-radius: 10px;
+}
+
+.message-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chat-app-message-list div div + div:hover {
+  cursor: pointer;
+}
+
+.chat-app-message-list > div p {
+  margin-bottom: 1px;
 }
 
 .Groups-and-Chats {

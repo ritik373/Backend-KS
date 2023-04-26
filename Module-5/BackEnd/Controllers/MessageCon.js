@@ -26,3 +26,15 @@ exports.getMessage = async (req, res, next) => {
     res.status(500).json({ error: "SOMETHING WENT WRONG" });
   }
 };
+
+exports.deleteMessage = async (req, res, next) => {
+  let id = req.params.id;
+  console.log(id);
+  try {
+    const group = await Message.destroy({ where: { id: id } });
+    console.log(group);
+    res.status(200).send({ group });
+  } catch (error) {
+    console.log("error:", error);
+  }
+};

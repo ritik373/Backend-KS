@@ -15,4 +15,10 @@ router.get(
   groupController.getGroup
 );
 
+router.get(
+  "/get-Membergroups",
+  authController.authenticate,
+  groupController.getMembersGroup
+);
+
 module.exports = router;
