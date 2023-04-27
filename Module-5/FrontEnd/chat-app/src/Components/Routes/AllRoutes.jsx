@@ -5,7 +5,6 @@ import Login from "./Login/Login";
 import Sign from "./Sign/Sign";
 import Chat from "./Chat/Chat";
 import Private from "./PrivateRoutes/Private";
-
 const AllRoutes = () => {
   return (
     <Routes>
@@ -30,5 +29,4 @@ const AllRoutes = () => {
     </Routes>
   );
 };
-
 export default AllRoutes;

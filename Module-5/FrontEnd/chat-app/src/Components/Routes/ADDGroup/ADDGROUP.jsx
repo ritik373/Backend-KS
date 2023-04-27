@@ -53,6 +53,21 @@ const ADDGROUP = (props) => {
     }
   };
 
+  const handleGetGroupsDirect = async () => {
+    try {
+      let res = await axios.get(
+        `http://localhost:4000/groups/getMember/${props.groupId}`,
+        {
+          headers: { Authorization: authToken },
+        }
+      );
+      console.log(res);
+      setMember(res.data.groupsMember);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
+
   const handleDeleteParti = async (e) => {
     let id = e.target.value;
     console.log(id);
@@ -68,7 +83,12 @@ const ADDGROUP = (props) => {
   };
 
   useEffect(() => {
-    handleGetGroups();
+    const intervalID = setInterval(() => {
+      handleGetGroups();
+      handleGetGroupsDirect();
+    }, 1000);
+
+    return () => clearInterval(intervalID);
   }, [props.groupId]);
 
   return (

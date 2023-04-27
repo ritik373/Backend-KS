@@ -157,9 +157,12 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    getData();
-    handleGroups();
+    const intervalId = setInterval(() => {
+      getData();
+      handleGroups();
+    }, 1000);
     getMemberGroup();
+    return () => clearInterval(intervalId);
   }, [GroupId]);
 
   return (
